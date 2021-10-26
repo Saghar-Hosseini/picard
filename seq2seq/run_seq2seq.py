@@ -21,6 +21,7 @@ from transformers.models.auto import AutoConfig, AutoTokenizer, AutoModelForSeq2
 from transformers.data.data_collator import DataCollatorForSeq2Seq
 from transformers.trainer_utils import get_last_checkpoint, set_seed
 from transformers.models.t5.modeling_t5 import T5ForConditionalGeneration
+from transformers import MT5ForConditionalGeneration
 from transformers.models.t5.tokenization_t5_fast import T5TokenizerFast
 from transformers.tokenization_utils_fast import PreTrainedTokenizerFast
 from tokenizers import AddedToken
@@ -30,6 +31,7 @@ from seq2seq.utils.dataset import DataTrainingArguments, DataArguments
 from seq2seq.utils.dataset_loader import load_dataset
 from seq2seq.utils.spider import SpiderTrainer
 from seq2seq.utils.cosql import CoSQLTrainer
+import pdb
 
 
 def main() -> None:
@@ -102,7 +104,7 @@ def main() -> None:
                 f"Checkpoint detected, resuming training at {last_checkpoint}. To avoid this behavior, change "
                 "the `--output_dir` or add `--overwrite_output_dir` to train from scratch."
             )
-
+    pdb.set_trace()
     os.makedirs(training_args.output_dir, exist_ok=True)
 
     if training_args.local_rank <= 0:

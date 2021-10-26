@@ -110,10 +110,11 @@ train: pull-train-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-		--mount type=bind,source=$(PWD)/train,target=/train \
-		--mount type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		--mount type=bind,source=$(PWD)/configs,target=/app/configs \
-		--mount type=bind,source=$(PWD)/wandb,target=/app/wandb \
+                --env WANDB_API_KEY=ba9a337172ac789152f26bf879116dfaaa3b6c5a \
+		-v type=bind,source=$(PWD)/train,target=/train \
+		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
+		-v type=bind,source=$(PWD)/configs,target=/app/configs \
+		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
 		tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train.json"
 
@@ -126,10 +127,10 @@ train_cosql: pull-train-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-		--mount type=bind,source=$(PWD)/train,target=/train \
-		--mount type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		--mount type=bind,source=$(PWD)/configs,target=/app/configs \
-		--mount type=bind,source=$(PWD)/wandb,target=/app/wandb \
+		-v type=bind,source=$(PWD)/train,target=/train \
+		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
+		-v type=bind,source=$(PWD)/configs,target=/app/configs \
+		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
 		tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train_cosql.json"
 
