@@ -1,6 +1,6 @@
 GIT_HEAD_REF := $(shell git rev-parse HEAD)
 
-BASE_IMAGE := pytorch/pytorch:1.9.0-cuda11.1-cudnn8-devel
+BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
 TRAIN_IMAGE_NAME := text-to-sql-train
@@ -55,7 +55,7 @@ build-dev-image:
 		--cache-from type=registry,ref=tscholak/$(DEV_IMAGE_NAME):cache \
 		--cache-to type=inline \
 		--push \
-		git@github.com:ElementAI/picard#$(GIT_HEAD_REF)
+		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
 
 .PHONY: pull-dev-image
 pull-dev-image:
@@ -75,7 +75,7 @@ build-train-image:
 		--cache-from type=registry,ref=tscholak/$(TRAIN_IMAGE_NAME):cache \
 		--cache-to type=inline \
 		--push \
-		git@github.com:ElementAI/picard#$(GIT_HEAD_REF)
+		https://github.com/Saghar-Hosseini/picard.git#$(GIT_HEAD_REF)
 
 .PHONY: pull-train-image
 pull-train-image:
@@ -95,7 +95,7 @@ build-eval-image:
 		--cache-from type=registry,ref=tscholak/$(EVAL_IMAGE_NAME):cache \
 		--cache-to type=inline \
 		--push \
-		git@github.com:ElementAI/picard#$(GIT_HEAD_REF)
+		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
 
 .PHONY: pull-eval-image
 pull-eval-image:
