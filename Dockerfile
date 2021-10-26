@@ -10,6 +10,7 @@ ARG TOOLKIT_GROUP_ID=13011
 
 RUN apt-get update \
     # Required to save git hashes
+    && apt-get upgrade -y \
     && apt-get install -y -q git curl unzip make gettext \
     && rm -rf /var/lib/apt/lists/*
 
