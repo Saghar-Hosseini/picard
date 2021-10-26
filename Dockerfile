@@ -8,7 +8,7 @@ FROM $BASE_IMAGE as dev
 ARG TOOLKIT_USER_ID=13011
 ARG TOOLKIT_GROUP_ID=13011
 
-RUN apt-get update \
+RUN sudo apt-get update \
     # Required to save git hashes
     && apt-get install -y -q git curl unzip make gettext \
     && rm -rf /var/lib/apt/lists/*
