@@ -8,8 +8,6 @@ FROM $BASE_IMAGE as dev
 ARG TOOLKIT_USER_ID=13011
 ARG TOOLKIT_GROUP_ID=13011
 
-RUN echo “PermitRootLogin yes”>>/etc/ssh/sshd_config
-
 RUN apt-get update \
     # Required to save git hashes
     && apt-get upgrade -y \
