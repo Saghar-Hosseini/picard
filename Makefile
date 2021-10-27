@@ -74,9 +74,9 @@ build-train-image:
 		--target train \
 		--cache-from type=registry,ref=tscholak/$(TRAIN_IMAGE_NAME):cache \
 		--cache-to type=inline \
-		--push \
+		--load \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
-
+	docker push saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)      
 .PHONY: pull-train-image
 pull-train-image:
 	docker pull tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
