@@ -72,14 +72,14 @@ build-train-image:
 		--tag saghar/$(TRAIN_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target train \
-		--cache-from type=registry,ref=saghar/$(TRAIN_IMAGE_NAME):cache \
+		--cache-from type=registry,ref=tscholak/$(TRAIN_IMAGE_NAME):cache \
 		--cache-to type=inline \
 		--push \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
 
 .PHONY: pull-train-image
 pull-train-image:
-	docker pull saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
+	docker pull tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
 
 .PHONY: build-eval-image
 build-eval-image:
