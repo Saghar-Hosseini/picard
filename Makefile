@@ -72,14 +72,14 @@ build-train-image:
 		--tag saghar/$(TRAIN_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target train \
-		--cache-from type=registry,ref=tscholak/$(TRAIN_IMAGE_NAME):cache \
+		--cache-from type=registry,ref=saghar/$(TRAIN_IMAGE_NAME):cache \
 		--cache-to type=inline \
 		--load \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
 	docker push saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)      
 .PHONY: pull-train-image
 pull-train-image:
-	docker pull tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
+	docker pull saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
 
 .PHONY: build-eval-image
 build-eval-image:
@@ -115,7 +115,7 @@ train: pull-train-image
 		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
 		-v type=bind,source=$(PWD)/configs,target=/app/configs \
 		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
-		tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
+		saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train.json"
 
 .PHONY: train_cosql
