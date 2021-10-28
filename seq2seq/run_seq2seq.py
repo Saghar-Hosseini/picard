@@ -104,7 +104,7 @@ def main() -> None:
                 f"Checkpoint detected, resuming training at {last_checkpoint}. To avoid this behavior, change "
                 "the `--output_dir` or add `--overwrite_output_dir` to train from scratch."
             )
-    pdb.set_trace()
+    #pdb.set_trace()
     os.makedirs(training_args.output_dir, exist_ok=True)
 
     if training_args.local_rank <= 0:
