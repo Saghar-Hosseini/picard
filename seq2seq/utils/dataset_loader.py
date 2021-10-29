@@ -41,10 +41,10 @@ def load_dataset(
     training_args: TrainingArguments,
     tokenizer: PreTrainedTokenizerFast,
 ) -> Tuple[Metric, DatasetSplits]:
-    _#spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
+    #_spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
      #   path=data_args.dataset_paths["spider"], cache_dir=model_args.cache_dir
     #)
-    spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
+    _spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
         'json', data_files=['./seq2seq/datasets/spider/en/train.json', './seq2seq/datasets/spider/en/dev.json', './seq2seq/datasets/spider/en/test.json'], 
         cache_dir=model_args.cache_dir
     )
