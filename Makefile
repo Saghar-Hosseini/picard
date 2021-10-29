@@ -109,7 +109,7 @@ train: pull-train-image
 	mkdir -p -m 777 wandb
 	chmod 777 transformers_cache
 	docker run -d \
-            -v ~/seq2seq/datasets:/app/seq2seq/datasets\
+            -v ~/home/sahoss/picard/seq2seq/datasets:/app/seq2seq/datasets \
             saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
 	docker run \
 		-it \
