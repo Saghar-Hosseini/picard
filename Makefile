@@ -108,7 +108,7 @@ train: pull-train-image
 	mkdir -p -m 777 transformers_cache
 	mkdir -p -m 777 wandb
 	chmod 777 transformers_cache
-      chmod 777 seq2seq
+      
 	docker run \
 		-it \
 		--rm \
