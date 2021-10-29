@@ -3,8 +3,9 @@
 BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train
+TRAIN_IMAGE_NAME := text-to-sql-train-base
 EVAL_IMAGE_NAME := text-to-sql-eval
+ML_TRAIN_IMAGE_NAME := text-to-sql-train_multilingual
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
 BUILDKIT_BUILDER ?= buildx-local
@@ -72,7 +73,7 @@ build-train-image:
 		--tag saghar/$(TRAIN_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target train \
-		--cache-from type=registry,ref=tscholak/$(TRAIN_IMAGE_NAME):cache \
+		--cache-from type=registry,ref=tscholak/text-to-sql-train:cache \
 		--cache-to type=inline \
 		--load \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
