@@ -47,7 +47,7 @@ def load_dataset(
     #)
     pdb.set_trace
     _spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
-        'json', data_files=['seq2seq/datasets/spider/en/train.json', 'seq2seq/datasets/spider/en/dev.json', 'seq2seq/datasets/spider/en/test.json'], 
+        'json', data_files=['datasets/spider/en/train.json', 'datasets/spider/en/dev.json', 'datasets/spider/en/test.json'], 
         cache_dir=model_args.cache_dir
     )
     _spider_metric: Callable[[], Metric] = lambda: datasets.load.load_metric(

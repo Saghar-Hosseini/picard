@@ -108,9 +108,6 @@ train: pull-train-image
 	mkdir -p -m 777 transformers_cache
 	mkdir -p -m 777 wandb
 	chmod 777 transformers_cache
-	docker run -d \
-            -v ~/home/sahoss/picard/seq2seq/datasets:/app/seq2seq/datasets \
-            saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF)
 	docker run \
 		-it \
 		--rm \
@@ -120,6 +117,7 @@ train: pull-train-image
 		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
 		-v type=bind,source=$(PWD)/configs,target=/app/configs \
 		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
+		-v type=bind,source=$(PWD)/seq2seq/datasets,target=/app/datasets \
 		saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train.json"
  
