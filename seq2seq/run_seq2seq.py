@@ -142,7 +142,7 @@ def main() -> None:
         tokenizer.add_tokens([AddedToken(" <="), AddedToken(" <")])
 
     # Load dataset
-    pdb.set_trace
+
     metric, dataset_splits = load_dataset(
         data_args=data_args,
         model_args=model_args,
