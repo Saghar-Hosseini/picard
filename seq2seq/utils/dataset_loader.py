@@ -1,5 +1,4 @@
 import json
-import pdb
 from typing import Callable, Tuple
 import logging
 import datasets.load
@@ -42,12 +41,8 @@ def load_dataset(
     training_args: TrainingArguments,
     tokenizer: PreTrainedTokenizerFast,
 ) -> Tuple[Metric, DatasetSplits]:
-    #_spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
-     #   path=data_args.dataset_paths["spider"], cache_dir=model_args.cache_dir
-    #)
-    pdb.set_trace
     _spider_dataset_dict: Callable[[], DatasetDict] = lambda: datasets.load.load_dataset(
-        'json', data_files=['./datasets/en/train.json', './datasets/en/dev.json', './datasets/en/test.json']
+        path=data_args.dataset_paths["spider"], cache_dir=model_args.cache_dir
     )
     _spider_metric: Callable[[], Metric] = lambda: datasets.load.load_metric(
         path=data_args.metric_paths["spider"], config_name=data_args.metric_config, test_suite_db_dir=data_args.test_suite_db_dir

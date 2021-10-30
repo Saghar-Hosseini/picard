@@ -290,7 +290,7 @@ COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./tests /app/tests/
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./third_party/spider /app/third_party/spider/
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./third_party/test_suite /app/third_party/test_suite/
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./configs /app/configs/
-COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./datasets /app/datasets/ 
+
 # ------------------------
 # Target: eval
 # ------------------------

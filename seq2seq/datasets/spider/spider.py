@@ -41,7 +41,7 @@ _HOMEPAGE = "https://yale-lily.github.io/spider"
 
 _LICENSE = "CC BY-SA 4.0"
 
-_URL = "https://drive.google.com/uc?export=download&id=1_AckYkinAnhqmRQtGsQgUKAnTHxxX5J0"
+_URL = "https://drive.google.com/u/0/uc?id=1SOte-CLSLYIRHyLr-tsbjFzg13HmrXD0&export=download"
 
 
 class Spider(datasets.GeneratorBasedBuilder):
@@ -101,21 +101,28 @@ class Spider(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_filepaths": [
-                        downloaded_filepath + "/spider/train_spider.json",
-                        downloaded_filepath + "/spider/train_others.json",
+                        downloaded_filepath + "/spider/en/train.json",
+                        #downloaded_filepath + "/spider/train_others.json",
                     ]
-                    if self.include_train_others
-                    else [downloaded_filepath + "/spider/train_spider.json"],
+                    #if self.include_train_others
+                    #else [downloaded_filepath + "/spider/train_spider.json"],
                     "db_path": downloaded_filepath + "/spider/database",
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
                 gen_kwargs={
-                    "data_filepaths": [downloaded_filepath + "/spider/dev.json"],
+                    "data_filepaths": [downloaded_filepath + "/spider/en/dev.json"],
                     "db_path": downloaded_filepath + "/spider/database",
                 },
             ),
+            datasets.SplitGenerator(
+                name=datasets.Split.TEST,
+                gen_kwargs={
+                    "data_filepaths": [downloaded_filepath + "/spider/en/test.json"],
+                    "db_path": downloaded_filepath + "/spider/database",
+                },
+            ),            
         ]
 
     def _generate_examples(
