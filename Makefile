@@ -9,6 +9,7 @@ ML_TRAIN_IMAGE_NAME := text-to-sql-train_multilingual
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
 BUILDKIT_BUILDER ?= buildx-local
+BASE_DIR := $(shell pwd)
 
 .PHONY: init-buildkit
 init-buildkit:
@@ -112,12 +113,11 @@ train: pull-train-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-                --env WANDB_API_KEY=ba9a337172ac789152f26bf879116dfaaa3b6c5a \
-		-v type=bind,source=$(PWD)/train,target=/train \
-		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		-v type=bind,source=$(PWD)/configs,target=/app/configs \
-		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
-		saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
+		--mount type=bind,source=$(BASE_DIR)/train,target=/train \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
+		tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train.json"
 
 .PHONY: train_cosql
@@ -129,10 +129,10 @@ train_cosql: pull-train-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-		-v type=bind,source=$(PWD)/train,target=/train \
-		-v type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		-v type=bind,source=$(PWD)/configs,target=/app/configs \
-		-v type=bind,source=$(PWD)/wandb,target=/app/wandb \
+		--mount type=bind,source=$(BASE_DIR)/train,target=/train \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		tscholak/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train_cosql.json"
 
@@ -145,10 +145,10 @@ eval: pull-eval-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-		--mount type=bind,source=$(PWD)/eval,target=/eval \
-		--mount type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		--mount type=bind,source=$(PWD)/configs,target=/app/configs \
-		--mount type=bind,source=$(PWD)/wandb,target=/app/wandb \
+		--mount type=bind,source=$(BASE_DIR)/eval,target=/eval \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval.json"
 
@@ -161,10 +161,10 @@ eval_cosql: pull-eval-image
 		-it \
 		--rm \
 		--user 13011:13011 \
-		--mount type=bind,source=$(PWD)/eval,target=/eval \
-		--mount type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		--mount type=bind,source=$(PWD)/configs,target=/app/configs \
-		--mount type=bind,source=$(PWD)/wandb,target=/app/wandb \
+		--mount type=bind,source=$(BASE_DIR)/eval,target=/eval \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval_cosql.json"
 
@@ -177,8 +177,8 @@ serve: pull-eval-image
 		--rm \
 		--user 13011:13011 \
 		-p 8000:8000 \
-		--mount type=bind,source=$(PWD)/database,target=/database \
-		--mount type=bind,source=$(PWD)/transformers_cache,target=/transformers_cache \
-		--mount type=bind,source=$(PWD)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/database,target=/database \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
 		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/serve_seq2seq.py configs/serve.json"
