@@ -101,26 +101,26 @@ class Spider(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_filepaths": [
-                        downloaded_filepath + "/spider/en/train.json",
+                        downloaded_filepath + "/en/train.json",
                         #downloaded_filepath + "/spider/train_others.json",
                     ],
                     #if self.include_train_others
                     #else [downloaded_filepath + "/spider/train_spider.json"],
-                    "db_path": downloaded_filepath + "/spider/database",
+                    "db_path": downloaded_filepath + "/database",
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
                 gen_kwargs={
-                    "data_filepaths": [downloaded_filepath + "/spider/en/dev.json"],
-                    "db_path": downloaded_filepath + "/spider/database",
+                    "data_filepaths": [downloaded_filepath + "/en/dev.json"],
+                    "db_path": downloaded_filepath + "/database",
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
                 gen_kwargs={
-                    "data_filepaths": [downloaded_filepath + "/spider/en/test.json"],
-                    "db_path": downloaded_filepath + "/spider/database",
+                    "data_filepaths": [downloaded_filepath + "/en/test.json"],
+                    "db_path": downloaded_filepath + "/database",
                 },
             ),            
         ]
