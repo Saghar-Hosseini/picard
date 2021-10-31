@@ -103,7 +103,7 @@ class Spider(datasets.GeneratorBasedBuilder):
                     "data_filepaths": [
                         downloaded_filepath + "/spider/en/train.json",
                         #downloaded_filepath + "/spider/train_others.json",
-                    ]
+                    ],
                     #if self.include_train_others
                     #else [downloaded_filepath + "/spider/train_spider.json"],
                     "db_path": downloaded_filepath + "/spider/database",
