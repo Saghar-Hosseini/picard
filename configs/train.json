@@ -40,5 +40,5 @@
     "predict_with_generate": true,
     "num_beams": 1,
     "num_beam_groups": 1,
-    "use_picard": false
+    "use_picard": true
 }
