@@ -32,6 +32,7 @@ from seq2seq.utils.dataset_loader import load_dataset
 from seq2seq.utils.spider import SpiderTrainer
 from seq2seq.utils.cosql import CoSQLTrainer
 import pdb
+import torch.distributed as dist
 
 
 def main() -> None:
@@ -272,4 +273,15 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    master_uri = "tcp://%s:%s" % (os.environ['MASTER_ADDR'], os.environ['MASTER_PORT'])
+    world_size = int(os.environ['OMPI_COMM_WORLD_SIZE'])
+    world_rank = int(os.environ['OMPI_COMM_WORLD_RANK'])
+    local_rank = int(os.environ['OMPI_COMM_WORLD_LOCAL_RANK'])
+    dist.init_process_group(
+        backend='nccl',
+        init_method=master_uri,
+        world_size=world_size,
+        rank=world_rank,
+    )
+
     main()
