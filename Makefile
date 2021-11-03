@@ -3,7 +3,7 @@
 BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-small-pickard
+TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-base-pickard
 EVAL_IMAGE_NAME := text-to-sql-eval
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
