@@ -20,8 +20,7 @@ from transformers.training_args_seq2seq import Seq2SeqTrainingArguments
 from transformers.models.auto import AutoConfig, AutoTokenizer, AutoModelForSeq2SeqLM
 from transformers.data.data_collator import DataCollatorForSeq2Seq
 from transformers.trainer_utils import get_last_checkpoint, set_seed
-from transformers.models.t5.modeling_t5 import T5ForConditionalGeneration
-from transformers import MT5ForConditionalGeneration
+from transformers.models.t5.modeling_t5 import T5ForConditionalGeneration, MT5ForConditionalGeneration
 from transformers.models.t5.tokenization_t5_fast import T5TokenizerFast
 from transformers.tokenization_utils_fast import PreTrainedTokenizerFast
 from tokenizers import AddedToken
@@ -171,6 +170,8 @@ def main() -> None:
             use_auth_token=True if model_args.use_auth_token else None,
         )
         if isinstance(model, T5ForConditionalGeneration):
+            model.resize_token_embeddings(len(tokenizer))
+        if isinstance(model, MT5ForConditionalGeneration):
             model.resize_token_embeddings(len(tokenizer))
 
         if training_args.label_smoothing_factor > 0 and not hasattr(model, "prepare_decoder_input_ids_from_labels"):
