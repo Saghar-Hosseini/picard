@@ -3,7 +3,7 @@
 BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train-base-pickard
+TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-small-pickard
 EVAL_IMAGE_NAME := text-to-sql-eval
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
@@ -117,7 +117,7 @@ train: pull-train-image
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
-		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train.json"
+		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train_mt5_small.json"
 
 .PHONY: train_cosql
 train_cosql: pull-train-image
