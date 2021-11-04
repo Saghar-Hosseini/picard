@@ -21,7 +21,7 @@ from transformers.models.auto import AutoConfig, AutoTokenizer, AutoModelForSeq2
 from transformers.data.data_collator import DataCollatorForSeq2Seq
 from transformers.trainer_utils import get_last_checkpoint, set_seed
 from transformers.models.t5.modeling_t5 import T5ForConditionalGeneration
-from transformers import MT5ForConditionalGeneration
+from transformers.models.mt5.modeling_mt5 import MT5ForConditionalGeneration
 from transformers.models.t5.tokenization_t5_fast import T5TokenizerFast
 from transformers.tokenization_utils_fast import PreTrainedTokenizerFast
 from tokenizers import AddedToken
