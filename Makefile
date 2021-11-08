@@ -1,6 +1,6 @@
 ﻿GIT_HEAD_REF := $(shell git rev-parse HEAD)
 
-BASE_IMAGE := horovod/horovod
+BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
 TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-base-pickard
