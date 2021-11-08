@@ -1,9 +1,9 @@
 ﻿GIT_HEAD_REF := $(shell git rev-parse HEAD)
 
-BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
+BASE_IMAGE := horovod/horovod:0.19.1-tf2.1.0-torch1.4.0-mxnet1.6.0-py3.6-gpu
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train-base-pickard
+TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-base-pickard
 EVAL_IMAGE_NAME := text-to-sql-eval
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
