@@ -1,6 +1,6 @@
 ﻿GIT_HEAD_REF := $(shell git rev-parse HEAD)
 
-BASE_IMAGE := horovod/horovod:0.19.1-tf2.1.0-torch1.4.0-mxnet1.6.0-py3.6-gpu
+BASE_IMAGE := horovod/horovod
 
 DEV_IMAGE_NAME := text-to-sql-dev
 TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-base-pickard
