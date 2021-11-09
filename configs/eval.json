@@ -13,6 +13,7 @@
     "cache_dir": "/transformers_cache",
     "do_train": false,
     "do_eval": true,
+    "do_predict": true,
     "fp16": false,
     "per_device_eval_batch_size": 1,
     "seed": 1,
