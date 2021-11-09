@@ -89,8 +89,8 @@ build-eval-image:
 		--builder $(BUILDKIT_BUILDER) \
 		--ssh default=$(SSH_AUTH_SOCK) \
 		-f Dockerfile \
-		--tag tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
-		--tag tscholak/$(EVAL_IMAGE_NAME):cache \
+		--tag saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
+		--tag saghar/$(EVAL_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target eval \
 		--cache-from type=registry,ref=tscholak/$(EVAL_IMAGE_NAME):cache \
@@ -100,7 +100,7 @@ build-eval-image:
 
 .PHONY: pull-eval-image
 pull-eval-image:
-	docker pull tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF)
+	docker pull saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF)
 
 .PHONY: train
 train: pull-train-image
@@ -148,7 +148,7 @@ eval: pull-eval-image
 		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
-		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
+		saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval.json"
 
 .PHONY: eval_cosql
