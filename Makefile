@@ -3,8 +3,8 @@
 BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-small-pickard
-EVAL_IMAGE_NAME := text-to-sql-eval-multilingual-small-pickard
+TRAIN_IMAGE_NAME := text-to-sql-train-base-pickard
+EVAL_IMAGE_NAME := text-to-sql-eval-base-pickard
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
 BUILDKIT_BUILDER ?= buildx-local
@@ -93,7 +93,7 @@ build-eval-image:
 		--tag saghar/$(EVAL_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target eval \
-		--cache-from type=registry,ref=tscholak/$(EVAL_IMAGE_NAME):cache \
+		--cache-from type=registry,ref=tscholak/text-to-sql-eval:cache \
 		--cache-to type=inline \
 		--push \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
