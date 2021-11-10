@@ -138,14 +138,14 @@ train_cosql: pull-train-image
 .PHONY: eval
 eval: pull-eval-image
 	mkdir -p -m 777 eval
-	mkdir -p -m 777 transformers_cache
+	mkdir -p -m 777 transformers_cache_eval
 	mkdir -p -m 777 wandb
 	docker run \
 		-it \
 		--rm \
 		--user 13011:13011 \
 		--mount type=bind,source=$(BASE_DIR)/eval,target=/eval \
-		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache_eval,target=/transformers_cache_eval \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
 		--mount type=bind,source=$(BASE_DIR)/train_t5base,target=/app/train_t5base \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
