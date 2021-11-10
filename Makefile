@@ -147,6 +147,7 @@ eval: pull-eval-image
 		--mount type=bind,source=$(BASE_DIR)/eval,target=/eval \
 		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/train_t5base,target=/app/train_t5base \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval.json"
