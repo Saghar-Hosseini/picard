@@ -1,6 +1,6 @@
 {
-    "run_name": "t5base+picard-spider-eval",
-    "model_name_or_path": "train/checkpoint-3072",
+    "run_name": "t5base+picard-spider-test",
+    "model_name_or_path": "train_t5base/checkpoint-3072",
     "dataset": "spider",
     "source_prefix": "",
     "schema_serialization_type": "peteshaw",

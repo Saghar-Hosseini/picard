@@ -13,6 +13,7 @@
     "cache_dir": "transformers_cache",
     "do_train": true,
     "do_eval": true,
+	"do_predict": true,
     "fp16": false,
     "num_train_epochs": 3072,
     "per_device_train_batch_size": 5,
