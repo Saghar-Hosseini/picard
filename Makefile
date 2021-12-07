@@ -118,7 +118,7 @@ train: pull-train-image
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		saghar/$(TRAIN_IMAGE_NAME):$(GIT_HEAD_REF) \
-		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train_mt5_base.json"
+		/bin/bash -c "python seq2seq/run_seq2seq.py configs/train_mt5_small.json"
 
 .PHONY: train_cosql
 train_cosql: pull-train-image
