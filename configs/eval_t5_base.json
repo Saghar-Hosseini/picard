@@ -10,7 +10,7 @@
     "normalize_query": true,
     "target_with_db_id": true,
     "output_dir": "/eval_t5base",
-    "cache_dir": "/transformers_cache_eval",
+    "cache_dir": "/transformers_cache_eval_t5base",
     "do_train": false,
     "do_eval": true,
     "fp16": false,
