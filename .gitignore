@@ -148,3 +148,5 @@ eval/*
 transformers_cache/*
 wandb/*
 database/*
+train_t5base/*
+train_mt5base/*
