@@ -3,8 +3,8 @@
 BASE_IMAGE := pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
 DEV_IMAGE_NAME := text-to-sql-dev
-TRAIN_IMAGE_NAME := text-to-sql-train-multilingual-small-pickard
-EVAL_IMAGE_NAME := text-to-sql-eval-multilingual-small-pickard
+TRAIN_IMAGE_NAME := text-to-sql-train-base-pickard
+EVAL_IMAGE_NAME := text-to-sql-eval-base-pickard
 
 BUILDKIT_IMAGE := tscholak/text-to-sql-buildkit:buildx-stable-1
 BUILDKIT_BUILDER ?= buildx-local
@@ -89,18 +89,18 @@ build-eval-image:
 		--builder $(BUILDKIT_BUILDER) \
 		--ssh default=$(SSH_AUTH_SOCK) \
 		-f Dockerfile \
-		--tag tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
-		--tag tscholak/$(EVAL_IMAGE_NAME):cache \
+		--tag saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
+		--tag saghar/$(EVAL_IMAGE_NAME):cache \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target eval \
-		--cache-from type=registry,ref=tscholak/$(EVAL_IMAGE_NAME):cache \
+		--cache-from type=registry,ref=tscholak/text-to-sql-eval:cache \
 		--cache-to type=inline \
 		--push \
 		git@github.com:Saghar-Hosseini/picard#$(GIT_HEAD_REF)
 
 .PHONY: pull-eval-image
 pull-eval-image:
-	docker pull tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF)
+	docker pull saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF)
 
 .PHONY: train
 train: pull-train-image
@@ -138,17 +138,18 @@ train_cosql: pull-train-image
 .PHONY: eval
 eval: pull-eval-image
 	mkdir -p -m 777 eval
-	mkdir -p -m 777 transformers_cache
+	mkdir -p -m 777 transformers_cache_eval
 	mkdir -p -m 777 wandb
 	docker run \
 		-it \
 		--rm \
 		--user 13011:13011 \
 		--mount type=bind,source=$(BASE_DIR)/eval,target=/eval \
-		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache_eval,target=/transformers_cache_eval \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
+		--mount type=bind,source=$(BASE_DIR)/train_t5base,target=/app/train_t5base \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
-		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
+		saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
 		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval.json"
 
 .PHONY: eval_cosql
