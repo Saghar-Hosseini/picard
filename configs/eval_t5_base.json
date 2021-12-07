@@ -1,6 +1,6 @@
 {
-    "run_name": "t5base+picard-spider-eval",
-    "model_name_or_path": "train_t5base",
+    "run_name": "t5base+picard-spider-test",
+    "model_name_or_path": "train_t5base/checkpoint-3072",
     "dataset": "spider",
     "source_prefix": "",
     "schema_serialization_type": "peteshaw",
@@ -13,7 +13,6 @@
     "cache_dir": "/transformers_cache",
     "do_train": false,
     "do_eval": true,
-    "do_predict": true,
     "fp16": false,
     "per_device_eval_batch_size": 1,
     "seed": 1,
