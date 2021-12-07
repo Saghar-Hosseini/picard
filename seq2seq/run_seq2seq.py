@@ -47,7 +47,6 @@ def main() -> None:
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        pdb.set_trace()
         picard_args, model_args, data_args, data_training_args, training_args = parser.parse_json_file(
             json_file=os.path.abspath(sys.argv[1])
         )
