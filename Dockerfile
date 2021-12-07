@@ -336,6 +336,9 @@ RUN cabal update \
 # Misc environment variables
 ENV HF_HOME=transformers_cache
 
+RUN mkdir transformers_cache
+RUN chmod 777 transformers_cache
+
 # Copy Seq-to-seq code
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./seq2seq /app/seq2seq/
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./tests /app/tests/
