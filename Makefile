@@ -141,7 +141,7 @@ eval: pull-eval-image
 	mkdir -p -m 777 eval_t5base
 	mkdir -p -m 777 transformers_cache_eval_t5base
 	mkdir -p -m 777 wandb
-	chmod 777 transformers_cache
+	chmod 777 transformers_cache/modules
 	chmod 777 transformers_cache_eval_t5base
 	docker run \
 		-it \

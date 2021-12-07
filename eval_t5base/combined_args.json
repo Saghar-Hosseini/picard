@@ -72,7 +72,7 @@
     "log_level": -1,
     "log_level_replica": -1,
     "log_on_each_node": true,
-    "logging_dir": "/eval_t5base/runs/Dec07_18-21-35_c1f703c11bba",
+    "logging_dir": "/eval_t5base/runs/Dec07_19-38-10_3cdea2a459db",
     "logging_strategy": "steps",
     "logging_first_step": false,
     "logging_steps": 500,

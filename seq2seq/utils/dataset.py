@@ -285,23 +285,30 @@ def prepare_splits(
         )
 
     if training_args.do_predict:
-        test_splits = {
-            section: _prepare_eval_split(
-                dataset_dict[section],
-                data_training_args=data_training_args,
-                add_serialized_schema=add_serialized_schema,
-                pre_process_function=pre_process_function,
-            )
-            for section in data_args.test_sections
-        }
-        test_split_schemas = {}
-        for split in test_splits.values():
-            test_split_schemas.update(split.schemas)
+        test_split = _prepare_eval_split(
+            dataset_dict["test"],
+            data_training_args=data_training_args,
+            add_serialized_schema=add_serialized_schema,
+            pre_process_function=pre_process_function,
+        )        
+        # test_splits = {
+        #     section: _prepare_eval_split(
+        #         dataset_dict[section],
+        #         data_training_args=data_training_args,
+        #         add_serialized_schema=add_serialized_schema,
+        #         pre_process_function=pre_process_function,
+        #     )
+        #     for section in data_args.test_sections
+        # }
+        # test_split_schemas = {}
+        # for split in test_splits.values():
+        #     test_split_schemas.update(split.schemas)
 
     schemas = {
         **(train_split.schemas if train_split is not None else {}),
         **(eval_split.schemas if eval_split is not None else {}),
-        **(test_split_schemas if test_splits is not None else {}),
+        **(test_split.schemas if test_splits is not None else {}),
+        # **(test_split_schemas if test_splits is not None else {}),
     }
 
     return DatasetSplits(
