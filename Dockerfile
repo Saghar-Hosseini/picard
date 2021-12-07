@@ -334,8 +334,8 @@ RUN cabal update \
     && find /app/.cabal/store/ghc-8.10.*/ -maxdepth 2 -type f -group root -exec chown $TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID {} \;
 
 # Misc environment variables
-ENV HF_HOME=”root/cache/transformers_cache”
-
+ENV HF_HOME=transformers_cache
+RUN chmod 777 transformers_cache
 # Copy Seq-to-seq code
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./seq2seq /app/seq2seq/
 COPY --chown=$TOOLKIT_USER_ID:$TOOLKIT_GROUP_ID ./tests /app/tests/
