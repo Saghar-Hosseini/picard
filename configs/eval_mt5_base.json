@@ -1,5 +1,5 @@
 {
-    "run_name": "mt5base+picard-spider-test-en",
+    "run_name": "mt5base+picard-spider-test-de",
     "model_name_or_path": "train_mt5base/checkpoint-20480",
     "dataset": "spider",
     "source_prefix": "",
