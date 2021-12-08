@@ -119,7 +119,7 @@ class Spider(datasets.GeneratorBasedBuilder):
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
                 gen_kwargs={
-                    "data_filepaths": [downloaded_filepath + "/en/test.json"],
+                    "data_filepaths": [downloaded_filepath + "/de/test.json"],
                     "db_path": downloaded_filepath + "/database",
                 },
             ),            
