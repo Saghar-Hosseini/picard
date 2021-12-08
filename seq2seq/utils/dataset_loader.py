@@ -149,6 +149,6 @@ def load_dataset(
     if dataset_splits.eval_split is not None:
         _log_duplicate_count(dataset=dataset_splits.eval_split.dataset, dataset_name=data_args.dataset, split="eval")
     if dataset_splits.test_split is not None:
-        _log_duplicate_count(dataset=split.dataset, dataset_name=data_args.dataset, split="test")
+        _log_duplicate_count(dataset=dataset_splits.test_split.dataset, dataset_name=data_args.dataset, split="test")
 
     return metric, dataset_splits
