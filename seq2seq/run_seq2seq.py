@@ -255,21 +255,34 @@ def main() -> None:
         # Testing
         if training_args.do_predict:
             logger.info("*** Predict ***")
-            for section, test_split in dataset_splits.test_splits.items():
-                results = trainer.predict(
-                    test_split.dataset, 
-                    test_split.examples,
-                    max_length=data_training_args.val_max_target_length,
-                    max_time=data_training_args.val_max_time,
-                    num_beams=data_training_args.num_beams,
-                    metric_key_prefix=section)
-                metrics = results.metrics
+            # for section, test_split in dataset_splits.test_splits.items():
+            #     results = trainer.predict(
+            #         test_split.dataset, 
+            #         test_split.examples,
+            #         max_length=data_training_args.val_max_target_length,
+            #         max_time=data_training_args.val_max_time,
+            #         num_beams=data_training_args.num_beams,
+            #         metric_key_prefix=section)
+            #     metrics = results.metrics
 
-                metrics[f"{section}_samples"] = len(test_split.dataset)
+            #     metrics[f"{section}_samples"] = len(test_split.dataset)
 
-                trainer.log_metrics(section, metrics)
-                trainer.save_metrics(section, metrics)
+            #     trainer.log_metrics(section, metrics)
+            #     trainer.save_metrics(section, metrics)
+            test_split = dataset_splits.test_split
+            results = trainer.predict(
+                     test_split.dataset, 
+                     test_split.examples,
+                     max_length=data_training_args.val_max_target_length,
+                     max_time=data_training_args.val_max_time,
+                     num_beams=data_training_args.num_beams,
+                     metric_key_prefix='test-en')
+            metrics = results.metrics
 
+            metrics["test-en"] = len(test_split.dataset)
+
+            trainer.log_metrics('test-en', metrics)
+            trainer.save_metrics('test-en', metrics)
 
 if __name__ == "__main__":
     main()

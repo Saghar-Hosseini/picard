@@ -138,7 +138,7 @@ def load_dataset(
         dataset_splits = DatasetSplits(
             train_split=train_split,
             eval_split=cosql_dataset_splits.eval_split,
-            test_splits=cosql_dataset_splits.test_splits,
+            test_split=cosql_dataset_splits.test_split,
             schemas=schemas,
         )
     else:
@@ -148,8 +148,7 @@ def load_dataset(
         _log_duplicate_count(dataset=dataset_splits.train_split.dataset, dataset_name=data_args.dataset, split="train")
     if dataset_splits.eval_split is not None:
         _log_duplicate_count(dataset=dataset_splits.eval_split.dataset, dataset_name=data_args.dataset, split="eval")
-    if dataset_splits.test_splits is not None:
-        for section, split in dataset_splits.test_splits.items():
-            _log_duplicate_count(dataset=split.dataset, dataset_name=data_args.dataset, split=section)
+    if dataset_splits.test_split is not None:
+        _log_duplicate_count(dataset=dataset_splits.test_split.dataset, dataset_name=data_args.dataset, split="test")
 
     return metric, dataset_splits
