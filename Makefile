@@ -138,22 +138,22 @@ train_cosql: pull-train-image
 
 .PHONY: eval
 eval: pull-eval-image
-	mkdir -p -m 777 eval_t5base
-	mkdir -p -m 777 transformers_cache_eval_t5base
+	mkdir -p -m 777 eval_mt5base
+	mkdir -p -m 777 transformers_cache_eval_mt5base
 	mkdir -p -m 777 wandb
 	chmod 777 transformers_cache/modules
-	chmod 777 transformers_cache_eval_t5base
+	chmod 777 transformers_cache_eval_mt5base
 	docker run \
 		-it \
 		--rm \
 		--user 13011:13011 \
-		--mount type=bind,source=$(BASE_DIR)/eval_t5base,target=/eval_t5base \
-		--mount type=bind,source=$(BASE_DIR)/transformers_cache_eval_t5base,target=/transformers_cache_eval_t5base \
+		--mount type=bind,source=$(BASE_DIR)/eval_mt5base,target=/eval_mt5base \
+		--mount type=bind,source=$(BASE_DIR)/transformers_cache_eval_mt5base,target=/transformers_cache_eval_mt5base \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
-		--mount type=bind,source=$(BASE_DIR)/train_t5base,target=/app/train_t5base \
+		--mount type=bind,source=$(BASE_DIR)/train_mt5base,target=/app/train_mt5base \
 		--mount type=bind,source=$(BASE_DIR)/wandb,target=/app/wandb \
 		saghar/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
-		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval_t5_base.json"
+		/bin/bash -c "python seq2seq/run_seq2seq.py configs/eval_mt5_base.json"
 
 .PHONY: eval_cosql
 eval_cosql: pull-eval-image
