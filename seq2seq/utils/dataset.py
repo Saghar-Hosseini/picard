@@ -177,7 +177,7 @@ class EvalSplit(object):
 class DatasetSplits(object):
     train_split: Optional[TrainSplit]
     eval_split: Optional[EvalSplit]
-    test_splits: Optional[Dict[str, EvalSplit]]
+    test_split: Optional[Dict[str, EvalSplit]]
     schemas: Dict[str, dict]
 
 
@@ -266,7 +266,7 @@ def prepare_splits(
     add_serialized_schema: Callable[[dict], dict],
     pre_process_function: Callable[[dict, Optional[int], Optional[int]], dict],
 ) -> DatasetSplits:
-    train_split, eval_split, test_splits = None, None, None
+    train_split, eval_split, test_split = None, None, None
 
     if training_args.do_train:
         train_split = _prepare_train_split(
@@ -307,14 +307,14 @@ def prepare_splits(
     schemas = {
         **(train_split.schemas if train_split is not None else {}),
         **(eval_split.schemas if eval_split is not None else {}),
-        **(test_split.schemas if test_splits is not None else {}),
+        **(test_split.schemas if test_split is not None else {}),
         # **(test_split_schemas if test_splits is not None else {}),
     }
 
     return DatasetSplits(
         train_split=train_split, 
         eval_split=eval_split, 
-        test_splits=test_splits, 
+        test_split=test_split, 
         schemas=schemas
     )
 
